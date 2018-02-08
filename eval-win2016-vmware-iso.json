@@ -1,0 +1,55 @@
+{
+	"builders":[  
+	{
+		"type": "vmware-iso",
+		"vm_name": "eval-win2016-standard",
+		"disk_size": "122880",
+		"iso_url": "http://care.dlservice.microsoft.com/dl/download/1/4/9/149D5452-9B29-4274-B6B3-5361DBDA30BC/14393.0.161119-1705.RS1_REFRESH_SERVER_EVAL_X64FRE_EN-US.ISO",
+    	"iso_checksum_type": "md5",
+    	"iso_checksum": "70721288bbcdfe3239d8f8c0fae55f1f",
+		"shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+		"headless": "true",		
+		"guest_os_type": "windows8srv-64",
+		"tools_upload_flavor": "windows",
+		"floppy_files": [
+			"./submodules/boxcutter/windows/floppy/00-run-all-scripts.cmd",
+			"./floppy/01-install-wget.cmd",
+			"./submodules/boxcutter/windows/floppy/_download.cmd",
+			"./submodules/boxcutter/windows/floppy/_packer_config.cmd",
+			"./submodules/boxcutter/windows/floppy/disablewinupdate.bat",
+			"./submodules/boxcutter/windows/floppy/eval-win2016-standard/Autounattend.xml",
+			"./submodules/boxcutter/windows/floppy/fixnetwork.ps1",
+			"./submodules/boxcutter/windows/floppy/install-winrm.cmd",
+			"./submodules/boxcutter/windows/floppy/passwordchange.bat",
+			"./submodules/boxcutter/windows/floppy/powerconfig.bat",
+			"./submodules/boxcutter/windows/floppy/zz-start-transports.cmd"
+		],
+		"vmx_data": {
+			"cpuid.coresPerSocket": "1",
+			"memsize": "4096",
+			"numvcpus": "1",
+			"scsi0.virtualDev": "lsisas1068"
+		},
+		"communicator": "winrm",
+		"winrm_password": "vagrant",
+		"winrm_username": "vagrant",
+		"winrm_timeout": "10000s"
+	}],
+	"post-processors":[
+		{
+			"type": "vsphere",
+			"host": "{{user `vsphere_host`}}",
+			"username": "{{user `vsphere_username`}}",
+			"password": "{{user `vsphere_password`}}",
+			"datacenter": "{{user `vsphere_datacenter`}}",						
+			"cluster" : "{{user `vsphere_cluster`}}",
+			"datastore": "{{user `vsphere_datastore`}}",
+			"vm_name": "eval-win2016-standard",
+			"vm_folder": "/",
+			"vm_network": "{{user `vsphere_vm_network`}}",
+			"disk_mode":"thin",
+			"insecure": false,
+			"overwrite" : true
+		}
+	]
+}
