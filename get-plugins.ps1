@@ -1,0 +1,2 @@
+wget https://github.com/jetbrains-infra/packer-builder-vsphere/releases/download/v2.0-beta4/packer-builder-vsphere-clone.exe -O %APPDATA%\packer.d\plugins\packer-builder-vsphere-clone.exe
+wget https://github.com/jetbrains-infra/packer-builder-vsphere/releases/download/v2.0-beta4/packer-builder-vsphere-iso.exe -O %APPDATA%\packer.d\plugins\packer-builder-vsphere-iso.exe
