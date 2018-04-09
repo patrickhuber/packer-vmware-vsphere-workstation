@@ -1,3 +1,6 @@
 [submodule "submodules/boxcutter/windows"]
 	path = submodules/boxcutter/windows
 	url = https://github.com/boxcutter/windows.git
+[submodule "submodules/github.com/boxcutter/ubuntu"]
+	path = submodules/github.com/boxcutter/ubuntu
+	url = https://github.com/boxcutter/ubuntu
