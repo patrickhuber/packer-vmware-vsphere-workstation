@@ -46,107 +46,7 @@
           "memsize": "{{ user `memory` }}",
           "numvcpus": "{{ user `cpus` }}"
         },
-        "vmx_remove_ethernet_interfaces": true
-      },
-      {
-        "boot_command": [
-          "{{ user `boot_command_prefix` }}",
-          "/install/vmlinuz noapic ",
-          "initrd=/install/initrd.gz ",
-          "file=/floppy/{{ user `preseed` }} ",
-          "debian-installer={{ user `locale` }} auto locale={{ user `locale` }} kbd-chooser/method=us ",
-          "hostname={{ user `hostname` }} ",
-          "grub-installer/bootdev=/dev/sda<wait> ",
-          "fb=false debconf/frontend=noninteractive ",
-          "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-          "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-          "passwd/user-fullname={{ user `ssh_fullname` }} ",
-          "passwd/user-password={{ user `ssh_password` }} ",
-          "passwd/user-password-again={{ user `ssh_password` }} ",
-          "passwd/username={{ user `ssh_username` }} ",
-          "-- <enter>"
-        ],
-        "disk_size": "{{ user `disk_size` }}",
-        "floppy_files": [
-          "http/{{ user `preseed` }}"
-        ],
-        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-        "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
-        "hard_drive_interface": "sata",
-        "headless": "{{ user `headless` }}",
-        "iso_checksum": "{{ user `iso_checksum` }}",
-        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-        "iso_urls": [
-          "{{ user `iso_path` }}/{{ user `iso_name` }}",
-          "{{ user `iso_url` }}"
-        ],
-        "output_directory": "output-{{ user `vm_name` }}-virtualbox-iso",
-        "post_shutdown_delay": "1m",
-        "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
-        "ssh_password": "{{ user `ssh_password` }}",
-        "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_wait_timeout": "10000s",
-        "type": "virtualbox-iso",
-        "vboxmanage": [
-          [
-            "modifyvm", "{{.Name}}", "--nictype1", "virtio"
-          ],
-          [
-            "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"
-          ],
-          [
-            "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
-          ]
-        ],
-        "virtualbox_version_file": ".vbox_version",
-        "vm_name": "{{user `vm_name`}}"
-      },
-      {
-        "boot_command": [
-          "{{ user `boot_command_prefix` }}",
-          "/install/vmlinuz noapic ",
-          "file=/floppy/{{ user `preseed` }} ",
-          "debian-installer={{ user `locale` }} auto locale={{ user `locale` }} kbd-chooser/method=us ",
-          "hostname={{ user `hostname` }} ",
-          "grub-installer/bootdev=/dev/sda<wait> ",
-          "fb=false debconf/frontend=noninteractive ",
-          "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-          "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-          "passwd/user-fullname={{ user `ssh_fullname` }} ",
-          "passwd/user-password={{ user `ssh_password` }} ",
-          "passwd/user-password-again={{ user `ssh_password` }} ",
-          "passwd/username={{ user `ssh_username` }} ",
-          "initrd=/install/initrd.gz -- <wait><enter>"
-        ],
-        "disk_size": "{{ user `disk_size` }}",
-        "floppy_files": [
-          "http/{{ user `preseed` }}"
-        ],
-        "guest_os_type": "{{ user `parallels_guest_os_type` }}",
-        "http_directory": "http",
-        "iso_checksum": "{{ user `iso_checksum` }}",
-        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-        "iso_urls": [
-          "{{ user `iso_path` }}/{{ user `iso_name` }}",
-          "{{ user `iso_url` }}"
-        ],
-        "output_directory": "output-{{ user `vm_name` }}-parallels-iso",
-        "parallels_tools_flavor": "lin",
-        "prlctl": [
-          [
-            "set", "{{.Name}}", "--memsize", "{{ user `memory` }}"
-          ],
-          [
-            "set", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
-          ]
-        ],
-        "prlctl_version_file": ".prlctl_version",
-        "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
-        "ssh_password": "{{ user `ssh_password` }}",
-        "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_wait_timeout": "10000s",
-        "type": "parallels-iso",
-        "vm_name": "{{ user `vm_name` }}"
+        "vmx_remove_ethernet_interfaces": "{{user `vmx_remove_ethernet_interfaces`}}"
       }
     ],
     "provisioners": [
@@ -174,7 +74,7 @@
           "{{user `boxcutter_module`}}/script/virtualbox.sh",
           "{{user `boxcutter_module`}}/script/parallels.sh",
           "{{user `boxcutter_module`}}/script/motd.sh",
-          "{{user `boxcutter_module`}}/{{user `custom_script`}}",
+          "{{user `custom_script`}}",
           "{{user `boxcutter_module`}}/script/minimize.sh",
           "{{user `boxcutter_module`}}/script/cleanup.sh"
         ],
@@ -186,7 +86,7 @@
       "boot_command_prefix": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "cleanup_pause": "",
       "cpus": "1",
-      "custom_script": "custom-script.sh",
+      "custom_script": "install-packages.sh",
       "desktop": "false",
       "disk_size": "65536",
       "ftp_proxy": "{{env `ftp_proxy`}}",
@@ -197,7 +97,6 @@
       "iso_checksum": "70db69379816b91eb01559212ae474a36ecec9ef",
       "iso_checksum_type": "sha1",
       "iso_name": "ubuntu-16.04-server-amd64.iso",
-      "iso_path": "/Volumes/Storage/software/ubuntu",
       "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
       "locale": "en_US",
       "memory": "512",
@@ -215,7 +114,8 @@
       "virtualbox_guest_os_type": "Ubuntu_64",
       "vm_name": "ubuntu1404",
       "vmware_guest_os_type": "ubuntu-64",
-      "boxcutter_module": "submodules/github.com/boxcutter/ubuntu"
+      "boxcutter_module": "submodules/github.com/boxcutter/ubuntu",
+      "vmx_remove_ethernet_interfaces": "true"
     }
   }
   

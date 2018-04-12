@@ -25,3 +25,7 @@ Once the VMX has been created and is uploaded to vcenter, it is ready for the se
 # Submodules
 
 This git repo is dependent on the [boxcutter/windows](https://github.com/boxcutter/windows) repository for many of the automation scripts. In specific circumstances, files have been copied from the submodule and modified in this repo. Ideally all dependencies will update based on feedback from issues and pull requests, though this is not always the case.
+
+# dependencies
+
+https://gist.githubusercontent.com/rahulkj/142e41e9a86013358a7c2bb343c392fb/raw/a0ffb541a03b014c3c1dc07c715a8eb3ec086ea7/gistfile1.txt

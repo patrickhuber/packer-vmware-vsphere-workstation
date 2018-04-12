@@ -1,2 +1,2 @@
-packer_cache
-output-vmware-iso
+packer_cache/
+output-ubuntu1604-vmware-iso/
