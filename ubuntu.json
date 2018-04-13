@@ -19,6 +19,7 @@
           "initrd=/install/initrd.gz -- <enter>"
         ],
         "disk_size": "{{ user `disk_size` }}",
+        "disk_additional_size": "{{user `disk_additional_size`}}",
         "floppy_files": [
           "{{user `boxcutter_module`}}/http/{{ user `preseed` }}"
         ],
@@ -89,6 +90,7 @@
       "custom_script": "install-packages.sh",
       "desktop": "false",
       "disk_size": "65536",
+      "disk_additional_size": "65536",
       "ftp_proxy": "{{env `ftp_proxy`}}",
       "headless": "",
       "http_proxy": "{{env `http_proxy`}}",
